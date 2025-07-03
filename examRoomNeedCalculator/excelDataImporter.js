@@ -11,9 +11,10 @@ document.addEventListener("DOMContentLoaded", function() {
             fontWeight: "bold",
             boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
             transition: "all 0.3s ease",
-            margin: "10px 0",
-            justifyContent: "flex-end",
-            width: "fit-content",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+            zIndex: "101",
         },
         importButtonHover: {
             backgroundColor: "#45a049",

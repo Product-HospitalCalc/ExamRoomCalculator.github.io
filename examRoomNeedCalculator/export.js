@@ -38,11 +38,7 @@ function addExportButton() {
   style.textContent = `
       .export-button-container {
           display: flex;
-          justify-content: flex-end;
-          width: 100%;
           margin: 10px 0;
-          padding: 0 20px;
-          position: relative;
           z-index: 100;
       }
       

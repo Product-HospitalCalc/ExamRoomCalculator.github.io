@@ -22,90 +22,166 @@ body {
 }
 
 /* ================================
+   TRANSITION OVERLAY
+================================ */
+#transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #088eb0;
+  z-index: 9999;
+  transform: translateY(0);
+  transition: transform 0.6s ease-out;
+}
+
+#transition-overlay.slide-out {
+  transform: translateY(-100%);
+}
+
+/* ================================
+   HEADER SECTION
+================================ */
+#header {
+  width: 100%;
+}
+
+/* ================================
    MAIN LAYOUT CONTAINERS
 ================================ */
-
-/* Main wrapper container */
-#main-container {
+.container-all-graphics {
+  display: flex; 
+  flex-direction: row; 
   width: 100%;
-  max-width: 1800px;
-  margin: 0 auto;
-  padding: 0 15px;
+  height: calc(100% - 100px);
 }
 
-/* Top section - contains the 3 data containers */
-#top-section {
-  display: flex;
+.container-graphics {
+  width: 50%; 
+  display: flex; 
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ================================
+   LEFT SIDE - TABLE AND PIE CHARTS SECTION
+================================ */
+.container-table-graphics {
+  display: flex; 
+  flex-direction: row;
+  height: calc(100% - 226px);
+}
+
+/* Left content container */
+.container-left-contents {
+  flex: 1; 
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+}
+
+/* Throughput assumptions table container */
+.table-throughput-assumptions {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  width: 85%;   
+}
+
+/* Action buttons container */
+.action-buttons {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 200px;
+}
+
+/* Pie and donut charts container */
+.container-pie-and-donnut-chart {
+  flex: 1; 
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
-  flex-wrap: wrap;
+}
+
+.container-pie-char {
+  max-width: 78%;
+  max-height: calc(50% - 20px);
+  display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
-  margin-bottom: -20px;
 }
 
-/* Charts section - contains all chart containers */
-#charts-section {
-  display: block;      /* Change from flex to block */
-  width: 100%;
-  max-width: 1800px;
-  height: 800px;       /* Fixed height to contain absolute elements */
-  margin: -100px auto;
-  padding: 15px;
+.container-donnut-char {
+  max-width: 80%;
+  max-height: calc(50% - 20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ================================
-   DATA CONTAINERS (TOP SECTION)
-================================ */
-
-/* Input container - left container with form inputs */
-.input-container {
-  background: none;
-  box-shadow: none;
-  border: none;
-  padding: 8px;
-  flex: 1 1 300px;  /* Grow, shrink, and base width */
-  min-width: 200px;
-  max-width: 330px;
-  margin-left: -100px;
-  margin-right: auto; 
-  align-self: flex-start;  
+/* Instructions container */
+.instructions-container {
+  width: 95%;
+  background-color: #e7f3ff;
+  border: 1px solid #4a90e2;
+  padding: 18px;
+  font-family: Arial, sans-serif;
 }
 
-/* Output containers - center and right containers */
-.output-container {
-  background: white;
-  padding: 20px;
-  border: 2px solid #088eb0;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  padding-top: 30px;
+.instructions-container h3 {
+  color: #4a90e2;
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  font-weight: bold;
+}
 
-  width: calc(50% - 10px); 
-  height: 100%;
+.instructions-content p {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+}
 
-  overflow: auto;
-  overflow-x: clip;
+.instructions-content p:first-of-type {
+  margin-bottom: 12px;
+}
 
+.instructions-content p:last-of-type {
+  margin-top: 12px;
 }
 
 /* ================================
-   CHART CONTAINERS (CHARTS SECTION)
+   RIGHT SIDE - CHARTS AND TABLES SECTION
 ================================ */
+.container-chart-actions {
+  display: flex; 
+  flex-direction: column;
+}
 
-/* Bar chart container */
+/* Main chart container */
 #chart-container {
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 400px ;
+  max-height: 400px;
 }
 
-/* ================================
-   YEAR SELECTOR COMPONENT
-================================ */
+/* Year selector controls */
+.buttons-years {
+  display: flex; 
+  flex-direction: row; 
+  width: 100%;
+}
 
-/* Year selector scrollable area */
+.year-selector-container {
+  flex: 1; 
+  overflow-x: auto;
+}
+
 .year-selector {
   flex: 1;
   display: flex;
@@ -123,9 +199,7 @@ body {
   display: none; 
 }
 
-/* Year selector buttons */
 .year-button {
-  /* flex: 0 0 auto; */
   padding: 8px 16px;
   border: none;
   background-color: #f0f0f0;
@@ -148,9 +222,8 @@ body {
   transform: scale(1.1);
 }
 
-/* Year selector checkbox labels */
-.all-year-selector
-{
+/* Show all years checkbox */
+.all-year-selector {
   height: fit-content;
   display: flex;
   justify-content: center;
@@ -166,15 +239,13 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   margin-left: 10px;
 }
-.all-year-selector :hover
-{
+
+.all-year-selector:hover {
   background-color: #e8e8e8;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-/* Year selector checkboxes */
-.all-year-selector-input
-{
+.all-year-selector-input {
   width: auto;
   margin-right: 8px;
   appearance: none;
@@ -189,13 +260,11 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.all-year-selector-input:checked
-{
+.all-year-selector-input:checked {
   background-color: #088eb0;
 }
 
-.all-year-selector-input:checked::after
-{
+.all-year-selector-input:checked::after {
   content: '';
   position: absolute;
   left: 3px;
@@ -206,28 +275,31 @@ body {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
-.all-year-selector-input :checked + span
-{
+
+.all-year-selector-input:checked + span {
   font-weight: bold;
   color: #088eb0;
 }
 
-.all-year-selector-input :checked
-{
+.all-year-selector-input:checked {
   animation: checkboxPulse 0.3s ease;
 }
 
-.all-year-selector
-/* .year-selector-container label span  */
-{
+.all-year-selector {
   transition: color 0.3s ease;
+}
+
+/* Output tables container */
+.container-tables {
+  height: calc(100% - 450px); 
+  display: flex; 
+  flex-direction: row;
+  gap: 20px;
 }
 
 /* ================================
    TYPOGRAPHY STYLES
 ================================ */
-
-/* Main heading */
 h1 {
   font-size: 2.2rem;
   color: rgb(83, 82, 83);
@@ -235,7 +307,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* Secondary heading */
 h2 {
   font-size: 1rem;
   color: rgb(83, 82, 83);
@@ -245,8 +316,7 @@ h2 {
   padding-bottom: 5px;
 }
 
-/* Output container headings */
-.output-container h3{
+.output-container h3 {
   font-size: 1rem;
   color: rgb(83, 82, 82);
   text-align: center;
@@ -263,23 +333,20 @@ h2 {
   overflow-x: auto;
 }
 
-/* Output container paragraphs */
-.output-container p{
+.output-container p {
   font-size: 0.9rem;
   color: rgb(83, 82, 82);
   text-align: center;
   margin: 10px 0 5px 0;
 }
 
-.output-container p:first-of-type{
+.output-container p:first-of-type {
   margin-top: -10px;
 }
 
 /* ================================
    TABLE STYLES
 ================================ */
-
-/* Base table styling */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -287,7 +354,6 @@ table {
   table-layout: auto;
 }
 
-/* Table cells */
 th, td {
   padding: 10px;
   font-size: 0.75rem;
@@ -295,23 +361,33 @@ th, td {
   white-space: normal;
 }
 
-/* Table headers */
 th {
   font-weight: bold;
   background-color: #f0f0f0;
 }
 
-/* Last column header alignment */
 .input-container table th:last-child {
   text-align: right;
   padding-right: 22px;
 }
 
 /* ================================
-   TABLE STYLES FOR OUTPUT CONTAINERS
+   OUTPUT CONTAINER STYLES
 ================================ */
+.output-container {
+  background: white;
+  padding: 20px;
+  border: 2px solid #088eb0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding-top: 30px;
+  width: calc(50% - 10px); 
+  height: 100%;
+  overflow: auto;
+  overflow-x: clip;
+}
 
-/* Tables inside output containers with subtle borders */
+/* Output container table styles */
 .output-container table {
   border: none;
   border-collapse: collapse;
@@ -341,30 +417,13 @@ th {
   border-bottom: none;
 }
 
-/* ================================
-   FORM INPUT STYLES
-================================ */
-
-/* General input styling */
-input {
-  width: 100%;
-  border: none;
-  font-size: 0.7rem;
-  text-align: right;
-  background: none;
-}
-
-/* ================================
-   SCROLLBAR STYLES
-================================ */
-
-/* Custom scrollbars for output containers */
-.output-container::-webkit-scrollbar{
+/* Output container scrollbar styles */
+.output-container::-webkit-scrollbar {
   width: 3px; 
   height: 3px;
 }
 
-.output-container::-webkit-scrollbar-track{
+.output-container::-webkit-scrollbar-track {
   background: #f0f0f0; 
 }
 
@@ -373,15 +432,153 @@ input {
   border-radius: 3px;
 }
 
-.output-container::-webkit-scrollbar-thumb:hover{
+.output-container::-webkit-scrollbar-thumb:hover {
   background-color: #066f8c; 
+}
+
+/* ================================
+   FORM INPUT STYLES
+================================ */
+input {
+  width: 100%;
+  border: none;
+  font-size: 0.7rem;
+  text-align: right;
+  background: none;
+}
+
+/* Enhanced input fields for throughput assumptions */
+.table-throughput-assumptions td:last-child {
+  position: relative;
+  padding: 0;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  width: 120px;
+  min-width: 120px;
+}
+
+.table-throughput-assumptions td:last-child:hover {
+  border-color: #088eb0;
+  box-shadow: 0 0 0 2px rgba(8, 142, 176, 0.1);
+}
+
+.table-throughput-assumptions td:last-child:focus-within {
+  background-color: #088eb0;
+  border-color: #088eb0;
+  box-shadow: 0 0 0 2px rgba(8, 142, 176, 0.3);
+}
+
+.table-throughput-assumptions input[type="number"] {
+  width: 100%;
+  height: 35px;
+  border: none;
+  background: transparent;
+  padding: 0 35px 0 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  text-align: right;
+  outline: none;
+  transition: color 0.3s ease;
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Hide spinner arrows for WebKit browsers */
+.table-throughput-assumptions input[type="number"]::-webkit-outer-spin-button,
+.table-throughput-assumptions input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.table-throughput-assumptions td:last-child:focus-within input[type="number"] {
+  color: white;
+}
+
+.table-throughput-assumptions input[type="number"]::placeholder {
+  color: #999;
+}
+
+.table-throughput-assumptions td:last-child:focus-within input[type="number"]::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Custom input arrows */
+.input-arrows {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.table-throughput-assumptions td:last-child:hover .input-arrows {
+  opacity: 1;
+}
+
+.arrow-up, .arrow-down {
+  width: 20px;
+  height: 12px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: #666;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.arrow-up {
+  border-radius: 3px 3px 0 0;
+  border-bottom: none;
+}
+
+.arrow-down {
+  border-radius: 0 0 3px 3px;
+}
+
+.arrow-up:hover, .arrow-down:hover {
+  background-color: #e0e0e0;
+  border-color: #ccc;
+  transform: scale(1.05);
+}
+
+.arrow-up:active, .arrow-down:active {
+  transform: scale(0.95);
+}
+
+.table-throughput-assumptions td:last-child:focus-within .arrow-up,
+.table-throughput-assumptions td:last-child:focus-within .arrow-down {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: white;
+}
+
+.table-throughput-assumptions td:last-child:focus-within .arrow-up:hover,
+.table-throughput-assumptions td:last-child:focus-within .arrow-down:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.arrow-up::before {
+  content: "▲";
+}
+
+.arrow-down::before {
+  content: "▼";
 }
 
 /* ================================
    CANVAS & CHART ELEMENTS
 ================================ */
-
-/* Ensure canvas elements scale correctly */
 canvas {
   display: block;
   width: 100%;
@@ -390,27 +587,8 @@ canvas {
 }
 
 /* ================================
-   TRANSITION & OVERLAY EFFECTS
+   ANIMATION CLASSES
 ================================ */
-
-/* Full screen transition overlay */
-#transition-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #088eb0;
-  z-index: 9999;
-  transform: translateY(0);
-  transition: transform 0.6s ease-out;
-}
-
-#transition-overlay.slide-out {
-  transform: translateY(-100%);
-}
-
-/* Animation classes for dynamic updates */
 .animate-update {
   animation: fadeIn 0.5s ease-out forwards;
 }
@@ -427,10 +605,13 @@ td.animated-cell.highlight {
   background-color: rgba(8, 142, 176, 0.1);
 }
 
+.table-throughput-assumptions input[type="number"].value-changed {
+  animation: valueChange 0.3s ease;
+}
+
 /* ================================
    KEYFRAME ANIMATIONS
 ================================ */
-
 @keyframes fadeInSlide {
   0% {
     opacity: 0;
@@ -470,106 +651,36 @@ td.animated-cell.highlight {
   100% { transform: scale(1); }
 }
 
-.container-all-graphics{
-  display: flex; 
-  flex-direction: row; 
+@keyframes valueChange {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ================================
+   LEGACY STYLES (FOR COMPATIBILITY)
+================================ */
+#main-container {
   width: 100%;
-  height: calc(100% - 100px );
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
-.container-graphics{
-  width: 50%; display: flex; flex-direction: column;
-  gap: 15px;
-}
-.container-table-graphics{
-  display: flex; 
-  flex-direction: row;
-  height: calc(100% - 226px);
-}
-.table-throughput-assumptions{
-  display: flex; 
-  flex-direction: column;
-  align-items: center;
-  width: 85%;   
-}
-.container-pie-and-donnut-chart{
-  flex: 1; 
-  display: flex; 
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-.action-buttons{
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 20px;
-  align-self: flex-start;
 
+#top-section {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: -20px;
 }
-.container-chart-actions{
-  display: flex; 
-  flex-direction: column;
-}
-.buttons-years{
-  display: flex; 
-  flex-direction: row; 
+
+#charts-section {
+  display: block;
   width: 100%;
-}
-.container-tables{
-  height: calc(100% - 450px); 
-  display: flex; 
-  flex-direction: row;
-  gap: 20px;
-}
-
-.container-pie-char{
-  max-width: 78%;
-  max-height: calc(50% - 20px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-.container-left-contents{
-  flex: 1; 
-  display: flex; 
-  flex-direction: column;
-  align-items: center; 
-
-}
-.container-donnut-char{
-  max-width: 80%;
-  max-height: calc(50% - 20px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.instructions-container {
-    width: 95%;
-    background-color: #e7f3ff;
-    border: 1px solid #4a90e2;
-    padding: 18px;
-    font-family: Arial, sans-serif;
-}
-
-.instructions-container h3 {
-    color: #4a90e2;
-    margin: 0 0 15px 0;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.instructions-content p {
-    margin: 8px 0;
-    font-size: 14px;
-    line-height: 1.4;
-    color: #333;
-}
-
-.instructions-content p:first-of-type {
-    margin-bottom: 12px;
-}
-
-.instructions-content p:last-of-type {
-    margin-top: 12px;
+  max-width: 1800px;
+  height: 800px;
+  margin: -100px auto;
+  padding: 15px;
 }

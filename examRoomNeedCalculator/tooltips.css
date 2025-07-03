@@ -1,0 +1,153 @@
+/* ================================
+   TOOLTIP STYLES
+================================ */
+
+/* Parameter name and info button container */
+.table-throughput-assumptions td:first-child {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 12px;
+}
+
+.parameter-name {
+    flex: 1;
+    font-weight: 500;
+    color: #333;
+    font-size: 0.75rem;
+}
+
+/* Info button styles */
+.info-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
+.info-btn:hover {
+    opacity: 1;
+    background-color: rgba(8, 142, 176, 0.1);
+    transform: scale(1.1);
+}
+
+.info-btn i {
+    font-size: 12px;
+    color: #088eb0;
+    transition: color 0.3s ease;
+}
+
+.info-btn:hover i {
+    color: #066f8c;
+}
+
+/* Tooltip styles */
+.tooltip {
+    position: absolute;
+    background-color: #2c3e50;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+    max-width: 280px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+.tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Tooltip arrow */
+.tooltip::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #2c3e50;
+}
+
+/* Tooltip positioning variants */
+.tooltip.top {
+    transform: translateY(-10px);
+}
+
+.tooltip.top.show {
+    transform: translateY(0);
+}
+
+.tooltip.bottom {
+    transform: translateY(10px);
+}
+
+.tooltip.bottom.show {
+    transform: translateY(0);
+}
+
+.tooltip.bottom::before {
+    top: -8px;
+    border-top: none;
+    border-bottom: 8px solid #2c3e50;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .tooltip {
+        max-width: 200px;
+        font-size: 12px;
+        padding: 10px 12px;
+    }
+    
+    .info-btn {
+        min-width: 18px;
+        height: 18px;
+    }
+    
+    .info-btn i {
+        font-size: 10px;
+    }
+}
+
+/* Enhanced table cell styling for better tooltip integration */
+.table-throughput-assumptions td:first-child:hover {
+    background-color: rgba(8, 142, 176, 0.05);
+}
+
+/* Animation for smooth tooltip appearance */
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.tooltip.show {
+    animation: tooltipFadeIn 0.3s ease-out;
+}

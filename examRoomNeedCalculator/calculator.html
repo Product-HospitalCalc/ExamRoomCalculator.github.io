@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
     <link rel="stylesheet" href="calculator.css" />
+    <link rel="stylesheet" href="tooltips.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> <!-- ChartDataLabels plugin -->
-    <!-- SheetJS for Excel handling -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
 </head>
 
 <body style="display: flex; flex-direction: column;" >
@@ -36,55 +34,100 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>ANNUAL GROWTH TARGET</td>
+                                    <td>
+                                        <span class="parameter-name">ANNUAL GROWTH TARGET</span>
+                                        <button class="info-btn" data-tooltip="Expected yearly percentage increase in patient visits. This drives future capacity planning calculations.">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </td>
                                     <td>
                                         <input type="number" id="annual-growth-target" value="0.016" step="0.001" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>AVERAGE CLINIC VISIT TIME (min)</td>
+                                    <td>
+                                        <span class="parameter-name">AVERAGE CLINIC VISIT TIME (min)</span>
+                                        <button class="info-btn" data-tooltip="Average duration of a patient visit including preparation, examination, and documentation time.">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </td>
                                     <td>
                                         <input type="number" id="avg-clinic-visit-time" value="45" step="1" readonly />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>CLINIC OPERATION DAYS PER YEAR</td>
+                                    <td>
+                                        <span class="parameter-name">CLINIC OPERATION DAYS PER YEAR</span>
+                                        <button class="info-btn" data-tooltip="Number of working days the clinic operates annually, excluding weekends, holidays, and planned closures.">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </td>
                                     <td>
                                         <input type="number" id="clinic-operation-days-per-year" value="255" step="1" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>CLINIC OPERATION HOURS PER DAY</td>
+                                    <td>
+                                        <span class="parameter-name">CLINIC OPERATION HOURS PER DAY</span>
+                                        <button class="info-btn" data-tooltip="Daily operating hours for patient appointments, excluding administrative time and breaks.">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </td>
                                     <td>
                                         <input type="number" id="clinic-operation-hours-per-day" value="8" step="1" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>CURRENT EXAM ROOMS PER PROVIDER</td>
+                                    <td>
+                                        <span class="parameter-name">CURRENT EXAM ROOMS PER PROVIDER</span>
+                                        <button class="info-btn" data-tooltip="Number of examination rooms currently assigned to each healthcare provider for patient visits.">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </td>
                                     <td>
                                         <input type="number" id="current-exam-rooms-per-provider" value="3" step="1" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>PATIENT VISITS</td>
+                                    <td>
+                                        <span class="parameter-name">PATIENT VISITS</span>
+                                        <button class="info-btn" data-tooltip="Total number of patient visits handled annually by the clinic across all providers.">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </td>
                                     <td>
                                         <input type="number" id="patient-visits" value="45000" step="1" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>PEAK MONTH VOLUME</td>
+                                    <td>
+                                        <span class="parameter-name">PEAK MONTH VOLUME</span>
+                                        <button class="info-btn" data-tooltip="Highest number of patient visits expected in the busiest month of the year, used for capacity planning.">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </td>
                                     <td>
                                         <input type="number" id="peak-month-volume" value="4050" step="1" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>PROVIDER PRODUCTIVITY, CURRENT</td>
+                                    <td>
+                                        <span class="parameter-name">PROVIDER PRODUCTIVITY, CURRENT</span>
+                                        <button class="info-btn" data-tooltip="Current efficiency ratio of healthcare providers, measuring visits per hour or room utilization rate.">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </td>
                                     <td>
                                         <input type="number" id="provider-productivity-current" value="2.0" step="0.1" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>PROVIDER PRODUCTIVITY, TARGET</td>
+                                    <td>
+                                        <span class="parameter-name">PROVIDER PRODUCTIVITY, TARGET</span>
+                                        <button class="info-btn" data-tooltip="Desired efficiency ratio for healthcare providers, representing the goal for improved productivity.">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </td>
                                     <td>
                                         <input type="number" id="provider-productivity-target" value="2.2" step="0.1" />
                                     </td>
@@ -93,9 +136,7 @@
                         </table>
                     </div>
                     <div class="action-buttons" id="action-buttons"  >
-
                         <!-- esto es para los botones -->
-
                     </div>
                 </div>
                 <div class="container-pie-and-donnut-chart" >
@@ -105,10 +146,7 @@
                     <div class="container-donnut-char" >
                         <canvas id="donnutChart"></canvas>
                     </div>
-
                 </div>
-
-
             </div>
             <div class="instructions-container">
                         <h3>Instructions</h3>
@@ -138,7 +176,6 @@
                             Show All Years
                         </p>
                     </div>
-
                 </div>
             </div>
 
@@ -159,7 +196,6 @@
                             </tr>
                         </thead>
                         <tbody id="outputTbody">
-
                         </tbody>
                     </table>
 
@@ -175,10 +211,8 @@
                             </tr>
                         </thead>
                         <tbody id="outputTbody2">
-
                         </tbody>
                     </table>
-
                 </div>
 
                 <div class="output-container" >
@@ -213,9 +247,11 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
+
+    <!-- Tooltip container -->
+    <div id="tooltip" class="tooltip"></div>
 
     <!-- Scripts -->
     <script src="calculator.js"></script>
@@ -225,6 +261,7 @@
     <script src="export.js"></script>
     <script src="excelDataImporter.js"></script>
     <script src="n8nIntegration.js"></script>
+    <script src="tooltips.js"></script>
 </body>
 
 </html>
