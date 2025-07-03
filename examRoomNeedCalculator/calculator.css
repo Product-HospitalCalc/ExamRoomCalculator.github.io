@@ -483,7 +483,6 @@ input {
   text-align: right;
   outline: none;
   transition: color 0.3s ease;
-  -moz-appearance: textfield; /* Firefox */
 }
 
 /* Hide spinner arrows for WebKit browsers */
