@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let breakdownValues = [12.5, 13, 19.5]; // [MA Visit, Wait in Exam, Provider Visit]
 
   let editingIndex = null; // this is the index of the component that is being edited
+  let hoverIndex = null; // this is the index of the component that is being hovered
 
   // DOM References
   const avgClinicVisitInput = document.getElementById("avg-clinic-visit-time");
@@ -26,6 +27,27 @@ document.addEventListener("DOMContentLoaded", function () {
   // init pie chart
   const pieCanvas = document.getElementById("pieChart");
   const pieCtx = pieCanvas.getContext("2d");
+  const clickToEditPlugin = {
+    afterDraw: function (chart) {
+      if (hoverIndex !== null) {
+        const meta = chart.getDatasetMeta(0);
+        const arc = meta.data[hoverIndex];
+        if (!arc) return;
+        const ctx = chart.ctx;
+
+        // Calculate the position of the label
+        const labelPos = getLabelPosition(arc);
+
+        ctx.save();
+        ctx.fillStyle = "#fff";
+        ctx.textAlign = "center";
+        ctx.font = "10px Arial";
+        // Draw the text just below the label
+        ctx.fillText("✎ Click to edit", labelPos.x, labelPos.y + 20);
+        ctx.restore();
+      }
+    },
+  };
   let myPieChart = new Chart(pieCtx, {
     type: "pie",
     data: {
@@ -55,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const percentage = total
               ? ((value / total) * 100).toFixed(1) + "%"
               : "0%";
-            return `${value.toFixed(1)} min\n(${percentage}) ✎`;
+            return `${value.toFixed(1)} min\n(${percentage})`;
           },
           color: "#fff",
           font: { weight: "bold" },
@@ -83,6 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
               )} min (${percentage})`;
             },
           },
+          xAlign: "center",
+          yAlign: "bottom",
         },
       },
       onClick: function (evt, elements) {
@@ -102,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
         showEditInput(index, pos);
       },
     },
-    plugins: [ChartDataLabels],
+    plugins: [ChartDataLabels, clickToEditPlugin],
   });
 
   function updatePieChart() {
@@ -132,9 +156,12 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     if (points.length) {
       pieCanvas.style.cursor = "pointer";
+      hoverIndex = points[0].index;
     } else {
       pieCanvas.style.cursor = "default";
+      hoverIndex = null;
     }
+    myPieChart.draw(); // Redibuja para mostrar/ocultar el texto
   });
 
   // Function to show the edit input
@@ -189,5 +216,14 @@ document.addEventListener("DOMContentLoaded", function () {
     input.addEventListener("blur", function () {
       finishEdit(true);
     });
+  }
+
+  // Function to get the position of the label
+  function getLabelPosition(arc) {
+    const angle = (arc.startAngle + arc.endAngle) / 2;
+    const radius = (arc.outerRadius + arc.innerRadius) / 2;
+    const x = arc.x + Math.cos(angle) * radius;
+    const y = arc.y + Math.sin(angle) * radius;
+    return { x, y };
   }
 });
