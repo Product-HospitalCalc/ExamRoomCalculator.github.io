@@ -19,10 +19,6 @@ class N8nIntegration {
         buttonContainer.innerHTML = `
         <div class="sync-container with-title">
             <h2 class="sync-title">Validating Key Planning Units</h2>
-            <button id="syncToAirtable" class="sync-btn">
-                <i class="fas fa-cloud-upload-alt"></i>
-                Sync to Airtable via n8n
-            </button>
             <div id="sync-status" class="sync-status"></div>
         </div>
     `;
@@ -31,16 +27,7 @@ class N8nIntegration {
 
         // Insert after header
         const header = document.getElementById('header')
-        header.appendChild(buttonContainer)
-
-
-        // const header = document.querySelector('header');
-        // if (header && header.nextSibling) {
-        //     header.parentNode.insertBefore(buttonContainer, header.nextSibling);
-        // } else {
-        //     document.body.insertBefore(buttonContainer, document.body.firstChild);
-        // }
-
+        header.appendChild(buttonContainer);
         // Add styles
         this.addStyles();
     }
@@ -84,49 +71,6 @@ class N8nIntegration {
                     color: white;
                     margin-bottom: 0px;
                 }
-
-                .sync-container {
-                    display: flex;
-                    align-items: center;
-                    gap: 15px;
-                    flex-wrap: wrap;
-                }
-
-                .sync-btn {
-                    background: linear-gradient(45deg, #088eb0, #065a73);
-                    color: white;
-                    border: none;
-                    padding: 12px 24px;
-                    border-radius: 25px;
-                    cursor: pointer;
-                    font-weight: Helvetica;
-                    font-size: 14px;
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(8, 142, 176, 0.3);
-                    margin: auto;
-                }
-
-                .sync-btn:hover:not(:disabled) {
-                    background: linear-gradient(45deg, #0aa5cc, #088eb0);
-                    transform: translateY(-2px);
-                    box-shadow: 0 6px 20px rgba(8, 142, 176, 0.4);
-                }
-
-                .sync-btn:disabled {
-                    background: #cccccc;
-                    cursor: not-allowed;
-                    transform: none;
-                    box-shadow: none;
-                    
-                }
-
-                .sync-btn.loading {
-                    background: linear-gradient(45deg, #0aa5cc, #088eb0);
-                }
-
                 .sync-status {
                     gap: 8px;
                     font-size: 14px;
@@ -135,7 +79,6 @@ class N8nIntegration {
                     display: block;
                     margin: 0 auto;
                 }
-
                 .status-ready, .status-loading, .status-success, .status-error {
                     color: #E8F8FB;
                     display: flex;
@@ -375,12 +318,6 @@ class N8nIntegration {
                         flex-direction: column;
                         align-items: center;
                     }
-                    
-                    .sync-btn {
-                        width: 100%;
-                        justify-content: center;
-                    }
-
                     .hcf-modal-content {
                         margin: 20px;
                         width: auto;

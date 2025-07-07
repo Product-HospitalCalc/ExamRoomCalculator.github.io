@@ -94,7 +94,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 200px;
+
 }
 
 /* Pie and donut charts container */
@@ -682,4 +682,40 @@ td.animated-cell.highlight {
   height: 800px;
   margin: -100px auto;
   padding: 15px;
+}
+
+/* ================================
+   N8N SYNC BUTTON STYLES
+================================ */
+
+.sync-btn {
+    background: linear-gradient(45deg, #088eb0, #065a73);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: Helvetica;
+    font-size: 14px;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(8, 142, 176, 0.3);
+}
+
+.sync-btn:hover:not(:disabled) {
+    background: linear-gradient(45deg, #0aa5cc, #088eb0);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(8, 142, 176, 0.4);
+}
+
+.sync-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.sync-btn.loading {
+    background: linear-gradient(45deg, #0aa5cc, #088eb0);
 }
