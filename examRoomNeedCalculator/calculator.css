@@ -48,13 +48,14 @@ body {
 }
 
 /* ================================
-   MAIN LAYOUT CONTAINERS
+   MAIN LAYOUT CONTAINERS - RESPONSIVE
 ================================ */
 .container-all-graphics {
   display: flex; 
   flex-direction: row; 
   width: 100%;
   height: calc(100% - 100px);
+  gap: 20px;
 }
 
 .container-graphics {
@@ -62,15 +63,17 @@ body {
   display: flex; 
   flex-direction: column;
   gap: 15px;
+  min-width: 0; /* Permite que el contenedor se encoja */
 }
 
 /* ================================
-   LEFT SIDE - TABLE AND PIE CHARTS SECTION
+   LEFT SIDE - TABLE AND PIE CHARTS SECTION - RESPONSIVE
 ================================ */
 .container-table-graphics {
   display: flex; 
   flex-direction: row;
   height: calc(100% - 226px);
+  gap: 15px;
 }
 
 /* Left content container */
@@ -78,7 +81,8 @@ body {
   flex: 1; 
   display: flex; 
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
+  min-width: 0;
 }
 
 /* Throughput assumptions table container */
@@ -86,7 +90,8 @@ body {
   display: flex; 
   flex-direction: column;
   align-items: center;
-  width: 85%;   
+  width: 100%;
+  max-width: 400px;
 }
 
 /* Action buttons container */
@@ -94,37 +99,43 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-
 }
 
-/* Pie and donut charts container */
+/* Pie and donut charts container - RESPONSIVE */
 .container-pie-and-donnut-chart {
   flex: 1; 
   display: flex; 
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  min-width: 0;
 }
 
 .container-pie-char {
-  max-width: 78%;
-  max-height: calc(50% - 20px);
+  width: 100%;
+  max-width: 400px;
+  height: calc(50% - 20px);
+  min-height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .container-donnut-char {
-  max-width: 80%;
-  max-height: calc(50% - 20px);
+  width: 100%;
+  max-width: 400px;
+  height: calc(50% - 20px);
+  min-height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 /* Instructions container */
 .instructions-container {
-  width: 95%;
+  width: 100%;
   background-color: #e7f3ff;
   border: 1px solid #4a90e2;
   padding: 18px;
@@ -154,36 +165,41 @@ body {
 }
 
 /* ================================
-   RIGHT SIDE - CHARTS AND TABLES SECTION
+   RIGHT SIDE - CHARTS AND TABLES SECTION - RESPONSIVE
 ================================ */
 .container-chart-actions {
   display: flex; 
   flex-direction: column;
+  min-width: 0;
 }
 
-/* Main chart container */
+/* Main chart container - RESPONSIVE */
 #chart-container {
-  height: auto;
+  width: 100%;
+  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 400px;
+  position: relative;
 }
 
-/* Year selector controls */
+/* Year selector controls - RESPONSIVE */
 .buttons-years {
   display: flex; 
   flex-direction: row; 
   width: 100%;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .year-selector-container {
   flex: 1; 
   overflow-x: auto;
+  min-width: 0;
 }
 
 .year-selector {
-  flex: 1;
   display: flex;
   gap: 5px;
   overflow-x: auto;
@@ -193,6 +209,7 @@ body {
   white-space: nowrap;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  padding: 5px 0;
 }
 
 .year-selector::-webkit-scrollbar {
@@ -209,6 +226,7 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
   color: #555;
   margin: 0px 5px;
+  flex-shrink: 0;
 }
 
 .year-button:hover {
@@ -222,7 +240,7 @@ body {
   transform: scale(1.1);
 }
 
-/* Show all years checkbox */
+/* Show all years checkbox - RESPONSIVE */
 .all-year-selector {
   height: fit-content;
   display: flex;
@@ -237,7 +255,7 @@ body {
   background-color: #f5f5f5;
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-left: 10px;
+  flex-shrink: 0;
 }
 
 .all-year-selector:hover {
@@ -289,12 +307,13 @@ body {
   transition: color 0.3s ease;
 }
 
-/* Output tables container */
+/* Output tables container - RESPONSIVE */
 .container-tables {
   height: calc(100% - 450px); 
   display: flex; 
   flex-direction: row;
   gap: 20px;
+  min-height: 300px;
 }
 
 /* ================================
@@ -345,13 +364,14 @@ h2 {
 }
 
 /* ================================
-   TABLE STYLES
+   TABLE STYLES - RESPONSIVE
 ================================ */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
   table-layout: auto;
+  overflow-x: auto;
 }
 
 th, td {
@@ -372,7 +392,7 @@ th {
 }
 
 /* ================================
-   OUTPUT CONTAINER STYLES
+   OUTPUT CONTAINER STYLES - RESPONSIVE
 ================================ */
 .output-container {
   background: white;
@@ -385,6 +405,7 @@ th {
   height: 100%;
   overflow: auto;
   overflow-x: clip;
+  min-width: 0;
 }
 
 /* Output container table styles */
@@ -437,7 +458,7 @@ th {
 }
 
 /* ================================
-   FORM INPUT STYLES
+   FORM INPUT STYLES - RESPONSIVE
 ================================ */
 input {
   width: 100%;
@@ -576,13 +597,142 @@ input {
 }
 
 /* ================================
-   CANVAS & CHART ELEMENTS
+   CANVAS & CHART ELEMENTS - RESPONSIVE
 ================================ */
 canvas {
   display: block;
-  width: 100%;
-  height: auto;
-  min-height: 300px;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Específico para canvas del gráfico de pie */
+#pieChart {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* ================================
+   RESPONSIVE BREAKPOINTS
+================================ */
+
+/* Tablets - 768px and down */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .container-all-graphics {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .container-graphics {
+    width: 100%;
+  }
+
+  .container-table-graphics {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .container-pie-and-donnut-chart {
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .container-pie-char,
+  .container-donnut-char {
+    width: 50%;
+    height: 300px;
+  }
+
+  .container-tables {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .output-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .buttons-years {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .year-selector-container {
+    width: 100%;
+  }
+
+  .all-year-selector {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  #chart-container {
+    height: 350px;
+  }
+}
+
+/* Mobile phones - 480px and down */
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .container-pie-and-donnut-chart {
+    flex-direction: column;
+  }
+
+  .container-pie-char,
+  .container-donnut-char {
+    width: 100%;
+    height: 250px;
+  }
+
+  .table-throughput-assumptions td:last-child {
+    width: 100px;
+    min-width: 100px;
+  }
+
+  .year-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px;
+    font-size: 0.7rem;
+  }
+
+  #chart-container {
+    height: 300px;
+  }
+}
+
+/* Large screens - 1200px and up */
+@media (min-width: 1200px) {
+  .container-pie-char,
+  .container-donnut-char {
+    max-width: 450px;
+  }
+
+  .table-throughput-assumptions {
+    max-width: 450px;
+  }
 }
 
 /* ================================
