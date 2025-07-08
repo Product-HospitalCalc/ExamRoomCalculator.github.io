@@ -66,7 +66,7 @@ class N8nIntegration {
                     margin: 0;
                     padding: 0;
                     text-align: left !important;
-                    font-size: 30px;
+                    font-size: 45px;
                     font-weight: bold;
                     color: white;
                     margin-bottom: 0px;
