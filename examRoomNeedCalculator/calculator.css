@@ -19,6 +19,7 @@ body {
   padding: 10px 20px;
   min-height: 100vh;
   gap: 20px;
+  min-width: 320px; /* NEW: Prevents layout from breaking on very narrow screens */
 }
 
 /* ================================
@@ -108,7 +109,9 @@ body {
 }
 
 .container-pie-char {
+  width: 100%;
   max-width: 78%;
+  height: 100%;
   max-height: calc(50% - 20px);
   display: flex;
   align-items: center;
@@ -116,7 +119,9 @@ body {
 }
 
 .container-donnut-char {
+  width: 100%;
   max-width: 80%;
+  height: 100%;
   max-height: calc(50% - 20px);
   display: flex;
   align-items: center;
@@ -169,6 +174,7 @@ body {
   justify-content: center;
   align-items: center;
   max-height: 400px;
+  min-height: 300px; /* Give main chart a minimum height */
 }
 
 /* Year selector controls */
@@ -579,11 +585,13 @@ input {
 /* ================================
    CANVAS & CHART ELEMENTS
 ================================ */
+/* UPDATED: Make canvas flexible to its container. Sizing is now controlled by the container. */
 canvas {
   display: block;
-  width: 100%;
-  height: auto;
-  min-height: 300px;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100% !important; /* !important helps override inline styles from Chart.js */
+  height: 100% !important;
 }
 
 /* ================================
@@ -719,4 +727,122 @@ td.animated-cell.highlight {
 
 .sync-btn.loading {
     background: linear-gradient(45deg, #0aa5cc, #088eb0);
+}
+
+
+/* ===================================================================
+   ============== RESPONSIVE DESIGN (MEDIA QUERIES) ==================
+   =================================================================== */
+
+/* For tablets and smaller desktops (large breakpoint)
+   - Stacks the main left and right columns
+   - Stacks the two output tables at the bottom
+*/
+@media (max-width: 1200px) {
+  /* Main layout stacks vertically */
+  .container-all-graphics {
+    flex-direction: column;
+    height: auto;
+    gap: 40px; /* Add space between stacked sections */
+  }
+
+  /* Children of main container take full width */
+  .container-graphics,
+  .container-chart-actions {
+    width: 100%;
+  }
+
+  /* The two output tables stack vertically */
+  .container-tables {
+    flex-direction: column;
+    align-items: center; /* Center the tables in the view */
+    height: auto;
+  }
+
+  .output-container {
+    width: 100%;
+    max-width: 800px; /* Optional: constrain max width for readability */
+    height: auto; /* Allow height to adjust to content */
+    margin-bottom: 20px;
+  }
+}
+
+/* For smaller tablets (medium breakpoint)
+   - Stacks the throughput table/instructions and the pie/donut charts
+*/
+@media (max-width: 992px) {
+  /* Stack the left-side content (table/instructions vs pie/donut) */
+  .container-table-graphics {
+    flex-direction: column;
+    align-items: center; /* Center items when stacked */
+    height: auto; /* CRITICAL: removes fixed height to prevent overflow/overlap */
+    gap: 40px;
+  }
+
+  /* Ensure child containers have appropriate width and constraints */
+  .container-left-contents,
+  .container-pie-and-donnut-chart {
+    width: 100%;
+    max-width: 600px; /* Prevent content from being excessively wide */
+  }
+  
+  /* On this view, allow pie/donut charts to be side-by-side if there's space */
+  .container-pie-and-donnut-chart {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping to a new line if screen is too narrow */
+  }
+
+  /* Define the minimum size for the small charts to prevent them from breaking */
+  .container-pie-char,
+  .container-donnut-char {
+    min-width: 260px;
+    min-height: 260px;
+    flex-shrink: 0; /* Prevent flexbox from shrinking them below min-width */
+  }
+}
+
+/* For mobile phones (small breakpoint)
+   - Final adjustments for small screens
+*/
+@media (max-width: 767px) {
+  body {
+    padding: 10px; /* Reduce body padding on small screens */
+  }
+
+  h1 {
+    font-size: 1.8rem; /* Slightly smaller main title */
+  }
+  
+  /* Ensure pie/donut charts stack vertically on the smallest screens */
+  .container-pie-and-donnut-chart {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Define size constraints for the small charts */
+  .container-pie-char,
+  .container-donnut-char {
+    width: 100%;
+    max-width: 320px;
+    min-width: 280px;
+    min-height: 280px;
+  }
+  
+  /* Make sure table and instructions use full width */
+  .table-throughput-assumptions,
+  .instructions-container {
+    width: 100%;
+  }
+  
+  /* Adjust legacy containers if they are in use */
+  #top-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .all-year-selector {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
 }

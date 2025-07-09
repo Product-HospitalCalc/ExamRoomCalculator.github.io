@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let editingIndex = null; // this is the index of the component that is being edited
   let hoverIndex = null; // this is the index of the component that is being hovered
+  let activeEditInfo = null; // holds info about the active input { element, index }
 
   // DOM References
   const avgClinicVisitInput = document.getElementById("avg-clinic-visit-time");
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         title: {
           display: true,
-          text: " Room Utilization",
+          text: "Room Utilization",
           font: {
             size: 17,
             weight: "bold",
@@ -112,8 +113,6 @@ document.addEventListener("DOMContentLoaded", function () {
       onClick: function (evt, elements) {
         if (!elements.length) return;
         const index = elements[0].index;
-        const meta = myPieChart.getDatasetMeta(0);
-        const pos = meta.data[index].tooltipPosition();
 
         // Remove the old input if it exists
         let oldInput = document.getElementById("inlinePieInput");
@@ -123,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
         editingIndex = index;
         myPieChart.update();
 
-        showEditInput(index, pos);
+        showEditInput(index);
       },
     },
     plugins: [ChartDataLabels, clickToEditPlugin],
@@ -137,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
     myPieChart.update();
   }
 
-  // initital setup: set  total field to sum of breakdown values
+  // initital setup: set total field to sum of breakdown values
   function initializeTotal() {
     const total = breakdownValues.reduce((a, b) => a + b, 0);
     avgClinicVisitInput.value = total.toFixed(1);
@@ -161,11 +160,11 @@ document.addEventListener("DOMContentLoaded", function () {
       pieCanvas.style.cursor = "default";
       hoverIndex = null;
     }
-    myPieChart.draw(); // Redibuja para mostrar/ocultar el texto
+    myPieChart.draw(); // Redraw to show/hide the "Click to edit" text
   });
 
   // Function to show the edit input
-  function showEditInput(index, pos) {
+  function showEditInput(index) {
     const input = document.createElement("input");
     input.type = "number";
     input.step = "0.1";
@@ -173,8 +172,6 @@ document.addEventListener("DOMContentLoaded", function () {
     input.value = breakdownValues[index].toFixed(1);
     input.id = "inlinePieInput";
     input.style.position = "absolute";
-    input.style.left = pieCanvas.offsetLeft + pos.x - 30 + "px";
-    input.style.top = pieCanvas.offsetTop + pos.y + 10 + "px";
     input.style.width = "60px";
     input.style.textAlign = "center";
     input.style.fontWeight = "light";
@@ -186,6 +183,13 @@ document.addEventListener("DOMContentLoaded", function () {
     input.style.fontWeight = "bold";
 
     pieCanvas.parentNode.appendChild(input);
+    
+    // Store active input info for resizing
+    activeEditInfo = { element: input, index: index };
+    
+    // Position the input correctly
+    positionEditInput();
+
     input.focus();
     input.select();
 
@@ -202,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       input.remove();
       editingIndex = null;
+      activeEditInfo = null; // Clear active input info
       myPieChart.update();
     }
 
@@ -217,6 +222,26 @@ document.addEventListener("DOMContentLoaded", function () {
       finishEdit(true);
     });
   }
+
+  // NEW: Function to position the edit input
+  function positionEditInput() {
+    if (!activeEditInfo) return;
+
+    const { element, index } = activeEditInfo;
+    const meta = myPieChart.getDatasetMeta(0);
+    if (!meta.data[index]) return;
+
+    const pos = meta.data[index].tooltipPosition();
+    const canvasRect = pieCanvas.getBoundingClientRect();
+    
+    // Position relative to the canvas's current viewport position
+    element.style.left = canvasRect.left + window.scrollX + pos.x - (element.offsetWidth / 2) + "px";
+    element.style.top = canvasRect.top + window.scrollY + pos.y + 10 + "px";
+  }
+
+  // NEW: Add resize listener to reposition the input if it's active
+  window.addEventListener('resize', positionEditInput);
+
 
   // Function to get the position of the label
   function getLabelPosition(arc) {
