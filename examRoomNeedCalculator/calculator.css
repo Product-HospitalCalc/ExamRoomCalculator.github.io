@@ -300,6 +300,7 @@ body {
 
 /* Output tables container */
 .container-tables {
+  height: 690px;
   max-height: calc(100% - 480px); 
   display: flex; 
   flex-direction: row;
